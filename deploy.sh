@@ -29,7 +29,7 @@ cd Oxide/Dependencies || die_with "Failed to change to dependencies directory!"
 cp -f IronPython.dll Jint.dll *Lua.dll Microsoft.Dynamic.dll Microsoft.Scripting*.dll Mono.*.dll \
 $HOME/temp/RustDedicated_Data/Managed || die_with "Failed to copy dependency DLLs!"
 
-cd ../ || die_with "Failed to change to project home!"
+cd ../../ || die_with "Failed to change to project home!"
 cp -f Patched/Assembly-CSharp.dll Patched/Facepunch.dll $HOME/temp/RustDedicated_Data/Managed || die_with "Failed to copy patched Rust server files!"
 cp -f Patched/oxide.root.json Oxide/Dependencies/lua5*.dll $HOME/temp || die_with "Failed to copy config file and Lua DLLs!"
 
