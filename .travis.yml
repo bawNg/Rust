@@ -1,21 +1,26 @@
-# Source language (using C since .NET and C# are not supported yet)
-language: c
+language: csharp
 
-# Install dependencies needed to compile .NET and C#
+# Add build number to version
 before_script:
-  - curl http://download.mono-project.com/repo/xamarin.gpg | sudo apt-key add -
-  - echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee -a /etc/apt/sources.list
-  - echo "deb http://download.mono-project.com/repo/debian wheezy-libtiff-compat main" | sudo tee -a /etc/apt/sources.list
-  - sudo apt-get update -qq
-  - sudo apt-get install mono-devel mono-dmcs mono-gmcs
   - sed -ri "s/VersionNumber\((.*), 0\)/VersionNumber(\1, $TRAVIS_BUILD_NUMBER)/g" Oxide.Ext.Rust/RustExtension.cs
 
-# Run the XBuild project file
-script: xbuild Rust.sln /p:Configuration=Release
+# Build the project
+solution: Rust.sln /p:Configuration=Release
+
+# Perform after compilation/test success
+after_success:
+  # Set execute permissions and run deployment script
+  #- "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == OxideMod/Rust ]] && [[ $TRAVIS_BRANCH == master ]] && ./deploy.sh"
 
 # Notification services
 notifications:
   # Disable build status email notifications, until the issue with forks is fixed
   email: false
   # IRC notification
-  irc: "chat.freenode.net#rustoxide"
+  irc: "chat.freenode.net#oxidemod"
+
+# Environmental system variables
+env:
+  global:
+    # Super secure, encrypted variables! Ssssh!
+    - secure: "IDi4M2nPUx+u0SPpEDuMnJuAIT6TWlTqDGC2raO9B9KBdZwjrKgsHURNJfX1bgLcYGI32KIj9KwUMI+YTTPNo3E/oIsFFaCWELfVTG8ChN/M5ZuDAV91uDieQCzY/NJPnx6JI0tlAQdb1b02NdEOmTh5wqU/c56gVpj4y7vH/wY="
