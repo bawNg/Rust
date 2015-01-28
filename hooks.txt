@@ -1,5 +1,3 @@
-Hooks currently in Oxide 2 for Rust:
-
 == OnInitLogging() ==
 	- Called from Assembly-CSharp/Bootstrap.StartupShared
 	- No return behaviour
@@ -19,7 +17,7 @@ Hooks currently in Oxide 2 for Rust:
 	- Called from RustCore.ModifyTags
 	- No return behaviour
 	- Add tags to the list, they will be concat'd at the end
-    
+
 == OnServerInitialized() ==
 	- Called from Assembly-CSharp/ServerMgr
 	- No return behaviour
